@@ -16,6 +16,57 @@ const getState = ({ getStore, getActions, setStore }) => {
 			]
 		},
 		actions: {
+			login: async formData => {
+				try {
+					const resp = await fetch('https://automatic-guacamole-xg5r7q46g6rf9qq4-3001.app.github.dev/api/login', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify(formData)
+					})
+			
+					if (!resp.ok) throw new Error('Error al autenticar usuario')
+			
+					const data = await resp.json()
+					if (data.token) {
+						setStore({ token: data.token })
+						localStorage.setItem('token', data.token)
+					} else {
+						throw new Error('Token no recibido')
+					}
+			
+				} catch (error) {
+					console.error(error)
+					alert('Ocurrió un problema al iniciar sesión. Por favor, intenta de nuevo.')
+				}
+			},
+			register: async formData => {
+				try {
+					const resp = await fetch('https://automatic-guacamole-xg5r7q46g6rf9qq4-3001.app.github.dev/api/register', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify(formData)
+					})
+			
+					if (!resp.ok) throw new Error('Error al registrar usuario')
+			
+					const data = await resp.json()
+					if (data.token) {
+						setStore({ token: data.token })
+						localStorage.setItem('token', data.token)
+					} else {
+						throw new Error('Token no recibido')
+					}
+			
+				} catch (error) {
+					console.error(error)
+					alert('Ocurrió un problema al registrarte. Por favor, intenta de nuevo.')
+				}
+			},
+		
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
