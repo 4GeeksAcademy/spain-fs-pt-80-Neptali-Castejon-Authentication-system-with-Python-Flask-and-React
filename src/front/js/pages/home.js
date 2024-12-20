@@ -14,17 +14,14 @@ export const Home = () => {
 
 	return (
 		<div className="text-center mt-5">
-
 			<h2>Register</h2>
 			<UserForm type={'register'} />
-
 
 			<h2>Login</h2>
 			<UserForm type={'login'} />
 			<p onClick={handleClick}>
 				Go to profile!
 			</p>
-
 		</div>
 	);
 };

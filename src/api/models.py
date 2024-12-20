@@ -11,11 +11,11 @@ class Users(db.Model):
 
     def __repr__(self):
         return f'<Users {self.email}>'
-
+    
     def serialize(self):
         return {
             "id": self.id,
             "email": self.email,
-            # do not serialize the password, its a security breach
-            "address": self.address.serialize() if self.address else None
+            # Asegúrate de manejar relaciones opcionales
         }
+
