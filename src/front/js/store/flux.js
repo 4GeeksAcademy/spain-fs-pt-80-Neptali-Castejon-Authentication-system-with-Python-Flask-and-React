@@ -16,9 +16,40 @@ const getState = ({ getStore, getActions, setStore }) => {
 			]
 		},
 		actions: {
+			getUserInfo: async () => {
+				try {
+					console.log("Iniciando solicitud para obtener información del usuario...");
+				  
+					const token = localStorage.getItem('token');
+					console.log("Token obtenido:", token);
+				  
+					const resp = await fetch('https://automatic-guacamole-xg5r7q46g6rf9qq4-3001.app.github.dev/api/user_info', {
+					  method: 'GET',
+					  headers: {
+						'Authorization': `Bearer ${token}`
+					  }
+					});
+				  
+					console.log("Respuesta completa:", resp);
+				  
+					if (!resp.ok) {
+					  console.error("Error en la respuesta del servidor:", resp.status, resp.statusText);
+					  throw new Error(`Error al obtener información del usuario`);
+					}
+				  
+					const data = await resp.json();
+					console.log("Datos obtenidos:", data);
+				  
+					setStore({ user: data.payload });
+				  } catch (error) {
+					console.error("Error obteniendo la información del usuario:", error);
+					return false;
+				  }
+			},
+
 			login: async formData => {
 				try {
-					const resp = await fetch('https://automatic-guacamole-xg5r7q46g6rf9qq4-3001.app.github.dev/api/login', {
+					const resp = await fetch('https://upgraded-space-zebra-x47vp7j4j6fvvj9-3001.app.github.dev/api/login', {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json'
