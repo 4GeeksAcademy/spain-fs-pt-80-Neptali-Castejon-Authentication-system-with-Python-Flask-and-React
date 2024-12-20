@@ -18,50 +18,49 @@ const getState = ({ getStore, getActions, setStore }) => {
 		actions: {
 			getUserInfo: async () => {
 				try {
-				  console.log("Iniciando solicitud para obtener información del usuario...");
-				
-				  const token = localStorage.getItem("token");
-				  if (!token) {
-					throw new Error("Token no encontrado en localStorage");
-				  }
-				
-				  console.log("Token obtenido:", token);
-				
-				  const resp = await fetch(
-					"https://automatic-guacamole-xg5r7q46g6rf9qq4-3001.app.github.dev/api/user_info",
-					{
-					  method: "GET",
-					  headers: {
-						Authorization: `Bearer ${token}`,
-					  },
+					console.log("Iniciando solicitud para obtener información del usuario...");
+					
+					const token = localStorage.getItem("token");
+					if (!token) {
+						throw new Error("Token no encontrado en localStorage");
 					}
-				  );
+				
+					console.log("Token obtenido:", token);
+					
+					const resp = await fetch(
+						"https://upgraded-space-zebra-x47vp7j4j6fvvj9-3001.app.github.dev/api/user_info",
+						{
+						method: "GET",
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+						}
+					);
 			  
-				  console.log("Respuesta completa:", resp);
+				  	console.log("Respuesta completa:", resp);
 			  
-				  if (!resp.ok) {
-					console.error("Error en la respuesta del servidor:", resp.status, resp.statusText);
-					if (resp.status === 401) {
-					  alert("El token ha expirado o no es válido. Por favor, inicia sesión nuevamente.");
-					} else if (resp.status === 404) {
-					  alert("Usuario no encontrado.");
-					} else {
-					  alert("Ocurrió un error al obtener la información del usuario.");
+					if (!resp.ok) {
+						console.error("Error en la respuesta del servidor:", resp.status, resp.statusText);
+						if (resp.status === 401) {
+						alert("El token ha expirado o no es válido. Por favor, inicia sesión nuevamente.");
+						} else if (resp.status === 404) {
+						alert("Usuario no encontrado.");
+						} else {
+						alert("Ocurrió un error al obtener la información del usuario.");
+						}
+						throw new Error(`Error al obtener información del usuario: ${resp.status}`);
 					}
-					throw new Error(`Error al obtener información del usuario: ${resp.status}`);
-				  }
-			  
-				  const data = await resp.json();
-				  console.log("Datos obtenidos:", data);
-			  
-				  setStore({ user: data.payload });
+				
+					const data = await resp.json();
+					console.log("Datos obtenidos:", data);
+				
+					setStore({ user: data.payload });
 				} catch (error) {
-				  console.error("Error obteniendo la información del usuario:", error.message);
-				  alert("No se pudo obtener la información del usuario. Por favor, verifica tu conexión.");
-				  return false;
+					console.error("Error obteniendo la información del usuario:", error.message);
+					alert("No se pudo obtener la información del usuario. Por favor, verifica tu conexión.");
+					return false;
 				}
 			},
-			  
 			login: async formData => {
 				try {
 					const resp = await fetch('https://upgraded-space-zebra-x47vp7j4j6fvvj9-3001.app.github.dev/api/login', {
@@ -89,7 +88,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			register: async formData => {
 				try {
-					const resp = await fetch('https://automatic-guacamole-xg5r7q46g6rf9qq4-3001.app.github.dev/api/register', {
+					const resp = await fetch('https://upgraded-space-zebra-x47vp7j4j6fvvj9-3001.app.github.dev/api/register', {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json'

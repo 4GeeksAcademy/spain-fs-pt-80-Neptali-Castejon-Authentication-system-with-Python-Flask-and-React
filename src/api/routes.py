@@ -72,6 +72,7 @@ def login():
     token = create_access_token(identity=str(user.id))
     return jsonify({"msg": "Inicio de sesión exitoso", "token": token}), 200
 
+
 @api.route('/user_info', methods=['GET'])
 @jwt_required()
 def get_user_info():
