@@ -5,3 +5,188 @@
     one more css for each page that will contain the selected used 
     on that page only (the ones not reused in other pages).
 */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+html {
+  font-size: var(--font-size-s); /* 16px */
+}
+
+body {
+  font-family: var(--font-family); /* Using the font-family variable */
+  font-size: var(--font-size-s); /* Base font size */
+  line-height: var(--line-height-m); /* Line height for readability */
+  color: var(--color-neutral-black); /* Base text color */
+  background-color: var(--color-neutral-white); /* Background color */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+
+:root {
+    /* Colors */
+    --color-primary-amethyst-400: #8A42FB;
+    --color-neutral-gray-50: #F3F3F3;
+    --color-neutral-white: #FFFFFF;
+    --color-neutral-black: #000000;
+    --color-neutral-gray-800: #343434;
+
+    /* Shadow */
+    --card-box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.1);
+
+    /* Buttons */
+    --button-border-radius: 8px; /* 5px */
+    --button-font-family: 'Open Sans', sans-serif;
+    --button-font-size: 1rem; /* 16px */
+    --button-line-height: 1.5rem; /* 24px */
+    --button-padding: 1rem; /* 16px */
+    --button-inner-gap: 0.5rem; /* 8px */
+    --button-card-gap: 1rem; /* 16px */
+    --button-gap: 0.5rem; /* 8px */
+}
+
+/* Typography styles */
+
+/* Common styles for all headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family); /* Use the defined font-family */
+  font-weight: var(--font-weight-bold); /* Bold font for headings */
+  color: var(--color-primary-amethyst-400); /* Set heading text color */
+  margin: 0 0 0.5rem; /* Add margin below headings */
+}
+
+/* Specific styles for each heading */
+h1 {
+  font-size: var(--font-size-xl); /* Large font size */
+  line-height: var(--line-height-xl); /* Line height for better readability */
+  text-align: center; /* Center the heading */
+}
+
+h2 {
+  line-height: var(--line-height-l); /* Line height */
+  text-align: center; /* Center the heading */
+}
+
+h3 {
+  font-size: 1.75rem; /* Adjusted size not defined by variable */
+}
+
+h4 {
+  font-size: 1.5rem; /* Smaller font size */
+}
+
+h5 {
+  font-size: 1.25rem; /* Smaller font size */
+}
+
+h6 {
+  font-size: var(--font-size-s); /* Smallest font size */
+}
+
+/* Paragraph styles */
+p {
+  font-size: var(--font-size-s); /* Use the small font size for paragraphs */
+  font-weight: var(--font-weight-regular); /* Regular font weight for paragraphs */
+  line-height: var(--line-height-s); /* Line height based on variable */
+  text-align: center; /* Center text */
+  margin: 0 0 1rem; /* Add margin below paragraphs */
+  color: var(--color-neutral-gray-800);
+}
+
+/* Link styles */
+a {
+  text-decoration: none;
+  color: var(--color-primary-amethyst-400);
+  transition: color 0.3s ease;
+}
+
+/* Form styles */
+
+.form-control{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact-form__form{
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  width: 100%;
+}
+
+.contact-form__field{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+}
+
+.contact-form__input{
+  font-family: var(--font-family);
+  width: 100%;
+  padding: .75rem;
+  border: none;
+  border-radius: .5rem;
+  background: rgba(37, 78, 126, 0.0901960784) 9%;
+  min-height: 3.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  outline: none;
+}
+
+.contact-form__button {
+  padding: .75rem 1rem;
+}
+
+.button--primary {
+  display: flex;
+  justify-content: center;
+  padding: var(--button-padding);
+  gap: var(--button-inner-gap);
+  border-radius: var(--button-border-radius);
+  background: var(--color-primary-amethyst-400);
+  font-family: var(--button-font-family);
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--button-line-height);
+  text-align: center;
+  color: var(--color-neutral-white);
+  border: none;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.button--custom{
+  max-width: 500px;
+  width: 100%;
+}
+
+.arrow-left {
+  transform: rotate(180deg); /* Rota la flecha hacia la izquierda */
+}
+
+/* separator line */
+.separator__line {
+  flex-grow: 1;
+  height: 0.0625rem;
+  background-color: var(--color-primary-amethyst-400);
+  border: none;
+  width: 50%;
+}
+
+/* Separator styles */
+.separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 500px;
+  padding: 0;
+}

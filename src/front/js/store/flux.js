@@ -13,7 +13,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			user: null, // Inicializar el estado del usuario
+    		token: localStorage.getItem("token") || null, // Cargar el token si existe
 		},
 		actions: {
 			getUserInfo: async () => {
@@ -61,57 +63,73 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
-			login: async formData => {
+			login: async (formData) => {
 				try {
 					const resp = await fetch('https://upgraded-space-zebra-x47vp7j4j6fvvj9-3001.app.github.dev/api/login', {
 						method: 'POST',
+						body: JSON.stringify(formData),
 						headers: {
 							'Content-Type': 'application/json'
-						},
-						body: JSON.stringify(formData)
-					})
+						}
+					});
 			
-					if (!resp.ok) throw new Error('Error al autenticar usuario')
+					if (!resp.ok) throw new Error('Error al autenticar usuario');
 			
-					const data = await resp.json()
+					const data = await resp.json();
+			
 					if (data.token) {
-						setStore({ token: data.token })
-						localStorage.setItem('token', data.token)
-					} else {
-						throw new Error('Token no recibido')
-					}
+						// Actualizar el store con el token
+						setStore({ token: data.token });
 			
+						// Guardar el token en localStorage
+						localStorage.setItem('token', data.token);
+			
+						return true; // Login exitoso
+					} else {
+						throw new Error('Token no recibido');
+					}
 				} catch (error) {
-					console.error(error)
-					alert('Ocurrió un problema al iniciar sesión. Por favor, intenta de nuevo.')
+					console.error(error);
+					alert('Ocurrió un problema al iniciar sesión. Por favor, intenta de nuevo.');
+					return false; // Error en el login
 				}
 			},
-			register: async formData => {
+			register: async (formData) => {
 				try {
-					const resp = await fetch('https://upgraded-space-zebra-x47vp7j4j6fvvj9-3001.app.github.dev/api/register', {
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json'
-						},
-						body: JSON.stringify(formData)
-					})
+					console.log("Datos enviados al servidor:", formData);
 			
-					if (!resp.ok) throw new Error('Error al registrar usuario')
+					const resp = await fetch(
+						"https://upgraded-space-zebra-x47vp7j4j6fvvj9-3001.app.github.dev/api/register",
+						{
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							body: JSON.stringify(formData),
+						}
+					);
 			
-					const data = await resp.json()
-					if (data.token) {
-						setStore({ token: data.token })
-						localStorage.setItem('token', data.token)
+					if (!resp.ok) {
+						const errorMessage = await resp.text();
+						const errorJson = JSON.parse(errorMessage);
+						console.error(`Error del servidor: ${resp.status} - ${resp.statusText}`);
+						console.error("Detalles del error:", errorJson);
+			
+						if (resp.status === 409 && errorJson.msg === "El correo ya existe!") {
+							alert("Este correo ya está registrado. Por favor, usa otro correo o inicia sesión.");
+						} else {
+							throw new Error(`Error al registrar usuario: ${errorMessage}`);
+						}
 					} else {
-						throw new Error('Token no recibido')
+						const data = await resp.json();
+						console.log("Datos recibidos del servidor:", data);
+						alert("Usuario registrado exitosamente.");
 					}
-			
 				} catch (error) {
-					console.error(error)
-					alert('Ocurrió un problema al registrarte. Por favor, intenta de nuevo.')
+					console.error("Error al registrar usuario:", error.message);
+					alert("Ocurrió un problema al registrarte. Por favor, intenta de nuevo.");
 				}
 			},
-		
 			
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
