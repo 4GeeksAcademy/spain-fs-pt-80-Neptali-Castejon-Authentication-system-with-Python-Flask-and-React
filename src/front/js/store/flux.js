@@ -29,8 +29,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				
 					console.log("Token obtenido:", token);
 					
-					const resp = await fetch(
-						"https://upgraded-space-zebra-x47vp7j4j6fvvj9-3001.app.github.dev/api/user_info",
+					const resp = await fetch(process.env.BACKEND_URL + "/api/user_info",
 						{
 						method: "GET",
 						headers: {
@@ -65,7 +64,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			login: async (formData) => {
 				try {
-					const resp = await fetch('https://upgraded-space-zebra-x47vp7j4j6fvvj9-3001.app.github.dev/api/login', {
+					const resp = await fetch(process.env.BACKEND_URL + "/api/login", {
 						method: 'POST',
 						body: JSON.stringify(formData),
 						headers: {
@@ -94,12 +93,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false; // Error en el login
 				}
 			},
+
 			register: async (formData) => {
 				try {
 					console.log("Datos enviados al servidor:", formData);
 			
-					const resp = await fetch(
-						"https://upgraded-space-zebra-x47vp7j4j6fvvj9-3001.app.github.dev/api/register",
+					const resp = await fetch(process.env.BACKEND_URL + "/api/register",
 						{
 							method: "POST",
 							headers: {
